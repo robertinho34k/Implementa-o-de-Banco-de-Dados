@@ -1,0 +1,129 @@
+/* Lógico_2: */
+
+CREATE TABLE LIVRO (
+    id int PRIMARY KEY IDENTITY,
+    titulo VARCHAR(255),
+    ano int,
+    FK_CATEGORIA_id int,
+    FK_EDITORA_id int,
+    FK_AUTOR_id int
+);
+
+CREATE TABLE EDITORA (
+    id int PRIMARY KEY IDENTITY,
+    Nome VARCHAR(255)
+);
+
+CREATE TABLE AUTOR (
+    id int PRIMARY KEY IDENTITY,
+    Nome VARCHAR(255)
+);
+
+CREATE TABLE CATEGORIA (
+    id int PRIMARY KEY IDENTITY,
+    descricao VARCHAR(255)
+);
+ 
+ALTER TABLE LIVRO ADD CONSTRAINT FK_LIVRO_2
+    FOREIGN KEY (FK_CATEGORIA_id)
+    REFERENCES CATEGORIA (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE LIVRO ADD CONSTRAINT FK_LIVRO_3
+    FOREIGN KEY (FK_EDITORA_id)
+    REFERENCES EDITORA (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE LIVRO ADD CONSTRAINT FK_LIVRO_4
+    FOREIGN KEY (FK_AUTOR_id)
+    REFERENCES AUTOR (id)
+    ON DELETE CASCADE;
+
+
+    INSERT INTO CATEGORIA (descricao)
+    VALUES ('Literatura Juvenil');
+
+    INSERT INTO CATEGORIA (descricao)
+    VALUES ('Humor');
+
+    INSERT INTO CATEGORIA (descricao)
+    VALUES ('Ficcao Cientifica');
+
+    INSERT INTO AUTOR(Nome)
+    VALUES ('J.K. Rowling');
+
+    INSERT INTO AUTOR(Nome)
+    VALUES ('Clive Staples Lewis');
+
+    INSERT INTO AUTOR(Nome)
+    VALUES ('Affonso Solano');
+
+    INSERT INTO AUTOR(Nome)
+    VALUES ('Marcos Piangers');
+
+    INSERT INTO AUTOR(Nome)
+    VALUES ('Ciro Botelho');
+
+    INSERT INTO AUTOR(Nome)
+    VALUES ('Bianca Mól');
+
+    INSERT INTO EDITORA(Nome)
+    VALUES ('Rocco');
+
+    INSERT INTO EDITORA(Nome)
+    VALUES ('Wmf Martins Fontes');
+
+    INSERT INTO EDITORA(Nome)
+    VALUES ('Casa da palavra');
+
+    INSERT INTO EDITORA(Nome)
+    VALUES ('Belas letras');
+
+    INSERT INTO EDITORA(Nome)
+    VALUES ('Matrix');
+
+
+
+
+
+    SELECT C.Nome, C.id
+    FROM EDITORA AS C;
+
+    SELECT C.Nome, C.id
+    FROM AUTOR AS C;
+
+    SELECT C.descricao, C.id
+    FROM CATEGORIA AS C;
+
+    INSERT INTO LIVRO(titulo, ano, FK_EDITORA_id, FK_AUTOR_id,FK_CATEGORIA_id) 
+    VALUES ('Harry Potter e A Pedra Filosofal', 2000, 1, 1, 1);
+
+    INSERT INTO LIVRO(titulo, ano, FK_EDITORA_id, FK_AUTOR_id,FK_CATEGORIA_id) 
+    VALUES ('As Cronicas de Narnias', 2009, 2 , 2, 1),
+    ('O espadachim de Carvão', 2013, 3, 3, 3),
+    ('O Papai É Pop', 2015, 4, 4, 2),
+    ('Pior Que Tá Não Fica', 2015, 5, 5, 2),
+    ('Garota Desdobrável', 2015, 3, 6, 1),
+    ('Harry Potter e o prisioneiro de Azkaban', 2000, 1, 1, 1);
+
+
+    SELECT C.titulo, C.ano, C.FK_EDITORA_id, C.FK_AUTOR_id, C.FK_CATEGORIA_id
+    FROM LIVRO AS C
+    ORDER BY titulo ASC;
+
+    SELECT C.titulo, C.ano, C.FK_EDITORA_id,A.Nome, C.FK_CATEGORIA_id
+    FROM LIVRO AS C, AUTOR AS A
+    WHERE C.FK_AUTOR_id = A.id
+    ORDER BY A.Nome ASC;
+
+    SELECT C.titulo, C.ano, C.FK_EDITORA_id, C.FK_AUTOR_id, C.FK_CATEGORIA_id
+    FROM LIVRO AS C
+    WHERE C.FK_CATEGORIA_id = 1
+    ORDER BY C.ano ASC;
+
+    SELECT C.titulo, C.ano, C.FK_EDITORA_id, C.FK_AUTOR_id, C.FK_CATEGORIA_id
+    FROM LIVRO AS C
+    WHERE C.FK_CATEGORIA_id = 2 OR C.FK_CATEGORIA_id = 3
+    ORDER BY C.ano ASC;
+
+
